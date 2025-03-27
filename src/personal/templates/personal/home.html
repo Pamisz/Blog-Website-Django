@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="border: 2px solid #000">
-    <h1>This is the body</h1>
-    <p>Here is where you put stuff that should be in the body of your websites.</p>
-
-    {% for list_item in list_of_values %}
-            {% include 'personal/snippets/body_snippet.html' with value=list_item %}
+    <h3>Registered users</h3>
+    {% for account in accounts %}
+        <p>{{account}}</p>
     {% endfor %}
 
-
-</div>
 {% endblock content %}
