@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h3>Registered users</h3>
-    {% for account in accounts %}
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 fw-normal text-body-emphasis">Django blog website</h1>
+    <p class="fs-5 text-body-secondary">This is a simple blog project built with Django. It features user registration,
+        login/logout functionality, and full CRUD operations for blog posts. The frontend is styled using Bootstrap for
+        a clean and responsive design. </p>
+</div>
+
+<div class="container">
+    <div class="d-flex flex-column">
+        <h3>Registered users</h3>
+        {% for account in accounts %}
         <p>{{account}}</p>
-    {% endfor %}
+        {% endfor %}
+    </div>
+</div>
+
 
 {% endblock content %}
