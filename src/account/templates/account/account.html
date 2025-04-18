@@ -2,22 +2,69 @@
 
 {% block content %}
 
-<h2>Account</h2>
-<form method="POST">{% csrf_token %}
+<style type="text/css">
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+        margin-bottom: 10px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="username"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .h3 {
+        text-align: center;
+    }
+
+    .blog-posts{
+        max-width: 500px;
+        margin: auto;
+        width: 100%;
+    }
+
+    .list-item{
+        list-style: none;
+        background-color: #f7f7f7;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+</style>
+
+<form class="form-signin" method="post"> {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Account</h1>
+
+    <div class="form-floating">
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required
+               autofocus
+               value={{account_form.initial.email}}>
+    </div>
+    <div class="form-floating">
+        <input type="text" name="username" class="form-control" id="inputUsername" placeholder="Username" required
+               value={{account_form.initial.username}}>
+    </div>
+
     {% for field in account_form %}
     <p>
-        {{field.label_tag}}
-        {{field}}
-
-        {% if field.help_text %}
-        <small style="color: grey;">{{field.help_text}}</small>
-        {% endif %}
+        {% for error in field.errors %}
+    <p style="color: red;">{{error}}</p>
+    {% endfor %}
     </p>
-
-    {% for field in account_form %}
-         {% for error in field.errors %}
-            <p style="color: red;">{{error}}</p>
-        {% endfor %}
     {% endfor %}
 
     {% if account_form.non_field_errors %}
@@ -26,9 +73,39 @@
     </div>
     {% endif %}
 
+    {% if success_message %}
+    <div style="color: green">
+        <p>{{success_message}}</p>
+    </div>
+    {% endif %}
 
-    {% endfor %}
-    <button type="submit ">Save changes</button>
+    <button class="btn btn-primary w-100 py-2" type="submit">Save changes</button>
 </form>
+
+<div class="d-flex flex-column">
+    <a class="m-auto" href="{% url 'password_change'%}">Change password</a>
+</div>
+
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="blog-posts">
+            <h3 class="mb-3 font-weight-normal">
+                Blog posts:
+            </h3>
+
+            {% if blog_posts %}
+            <ul>
+                {% for post in blog_posts %}
+                    <a href="{% url 'blog:detail' post.slug %}" style="text-decoration: none;">
+                        <li class = "list-item">{{post}}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>You have no blog posts. Create a post <a href="{% url 'blog:create' %}">here</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
