@@ -7,7 +7,7 @@ Register:
 Account management:
 ![image](https://github.com/user-attachments/assets/4a0bd744-fe2b-41f8-a103-fed65a61bb19)
 
-Home page:
+Home page with search bar and pagination:
 ![image](https://github.com/user-attachments/assets/1a966387-5aa9-4055-a608-7a2c3062e357)
 
 Reading post:
